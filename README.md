@@ -1,4 +1,4 @@
-#pynatconnd
+# pynatconnd
 
 pynatconnd is a connection tracking daemon intended to track Linux netfilter 
 connection tracking entries (IP NAT mappings) going through a linux nat firewall 
@@ -22,7 +22,7 @@ proxy_set_header      X-Real-IP $remote_addr;
 proxy_set_header      X-Real-Port $remote_port;
 ```
 
-##Installation
+## Installation
 
 It's a regular package for Python 2.7 and 3.x, so can be
 installed from a checkout with something like that:
