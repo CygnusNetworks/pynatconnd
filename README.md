@@ -12,14 +12,62 @@ builtin HTTP REST server. One possible usage scenario is, to get the internal (n
 ip address from external IP:Port combination, if you control the Linux NAT server and run 
 pynatconnd on this box.
 
-We are using this, to get the internal IP behind a NAT server, where pynatconnd is deployed 
-on the NAT device by using the IP/Port combination presented to a external webserver/proxy (in our case nginx).
+We are using this to get the internal IP behind a NAT server (where pynatconnd is deployed 
+on). This is done by querying the TCP port presented to a external webserver/proxy (in our case nginx).
+
+## Example query to pynatconnd
 
 For this to work you would need the following config on nginx:
 
 ```
 proxy_set_header      X-Real-IP $remote_addr;
 proxy_set_header      X-Real-Port $remote_port;
+```
+
+If the X-Real-IP matches the IP of your NAT box, you can query pynatconnd for the X-Real-Port http header:
+
+```
+import json
+import urllib
+...
+x_real_port = ...get('X-Real-Port)
+
+try:
+    ip = "a.b.c.d"
+    port = 8080
+    data = urllib.request.urlopen("%s:%i/%i" % (ip, port, x_real_port)).read()
+    data_dict = json.loads(data.decode('utf-8))
+except urllib.error.HTTPError as e:
+    if e.code == 404:
+        print("No NAT server entry found for ip %s port %s with http error %s" % (ip, port, e))
+    else:
+        print("Error accessing natconnd for ip %s port %s with unknown http error %s" % (ip, port, e))
+except urllib.error.URLError as e:
+    print("Error accessing natconnd ip %s port %s with URLError %s" % (ip, port, e))
+except Exception as e:
+    print("Error accessing natconnd ip %s port %s with unknown error %s" % (ip, port, e))
+return data_dict['src_ip']
+```
+
+## Requirements
+
+* Python 2.7 or Python 3.x
+* [CFFI](http://cffi.readthedocs.org) (for libnetfilter_conntrack bindings)
+* [libnetfilter_conntrack](http://www.netfilter.org/projects/libnetfilter_conntrack)
+* nf_conntrack_netlink kernel module (e.g. `modprobe nf_conntrack_netlink`)
+* Python: falcon and configobj
+
+CFFI uses C compiler to generate bindings, so gcc (or other compiler) should be
+available if module is being built from source or used from checkout tree.
+
+To install these requirements on Debian:
+
+`apt install build-essential libnfnetlink-dev python-cffi libnetfilter-conntrack-dev libpython2.7-dev`
+
+In addition the **nf_conntrack_netlink** module must be loaded:
+
+```
+modprobe nf_conntrack_netlink
 ```
 
 ## Installation
@@ -65,24 +113,4 @@ The following filter types are possible:
 
 One of these can be used as the key_name.
 
-## Requirements
-
-* Python 2.7 or Python 3.x
-* [CFFI](http://cffi.readthedocs.org) (for libnetfilter_conntrack bindings)
-* [libnetfilter_conntrack](http://www.netfilter.org/projects/libnetfilter_conntrack)
-* nf_conntrack_netlink kernel module (e.g. `modprobe nf_conntrack_netlink`)
-* Python: falcon and configobj
-
-CFFI uses C compiler to generate bindings, so gcc (or other compiler) should be
-available if module is being built from source or used from checkout tree.
-
-To install these requirements on Debian:
-
-`apt install build-essential libnfnetlink-dev python-cffi libnetfilter-conntrack-dev libpython2.7-dev`
-
-In addition the **nf_conntrack_netlink** module must be loaded:
-
-```
-modprobe nf_conntrack_netlink
-```
 
