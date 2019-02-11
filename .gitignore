@@ -1,0 +1,16 @@
+/*.egg-info
+/build
+/dist
+/README.txt
+/MANIFEST
+/__pycache__
+*.pyc
+*.pyo
+.idea
+example_multi_threads.py
+venv
+example-.py
+example_rest_server.py
+.DS_Store
+*.conf
+

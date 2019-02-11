@@ -1,0 +1,19 @@
+Source: pynatconnd
+Section: python
+Priority: optional
+Maintainer: Dr. Torge Szczepanek <debian@cygnusnetworks.de>
+Uploaders: Dr. Torge Szczepanek <debian@cygnusnetworks.de>
+Build-Depends: debhelper (>= 9), python-all, python3-all, python3-setuptools, python3-cffi, python3-cygnustoolkit, python3-dev, libnfnetlink-dev, libnetfilter-conntrack-dev, dh-python
+Standards-Version: 3.9.6
+
+Package: python-pynatconnd
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-cygnustoolkit (>= 0.40), python-setuptools, python-cffi
+Description: Cygnus Networks GmbH abuse handling automation
+ Tool for processing of email and snort abuse events
+
+Package: python3-pynatconnd
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3-cygnustoolkit (>= 0.40), python3-setuptools, python3-cffi
+Description: Cygnus Networks GmbH abuse handling automation
+ Tool for processing of email and snort abuse events
