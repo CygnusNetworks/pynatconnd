@@ -3,7 +3,6 @@
 import os
 import logging
 from cffi import FFI
-import cygnuslog  # pylint: disable=unused-import
 
 try:
 	import cygnuslog  # pylint: disable=unused-import
