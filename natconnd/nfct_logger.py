@@ -13,6 +13,8 @@ try:
 except ImportError:
 	pass
 
+log = logging.getLogger('cygnus.pynatconnd')
+
 FlowData = namedtuple('FlowData', 'src dst sport dport')
 about_FlowData = namedtuple('about', 'ts type proto')
 # flow.attrib['type'],ts, proto,

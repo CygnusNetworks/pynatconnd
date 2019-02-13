@@ -10,6 +10,8 @@ try:
 except ImportError:
 	pass
 
+log = logging.getLogger('cygnus.pynatconnd')
+
 # Try to work around insane "write_table" operations (which assume that
 #  they can just write lextab.py and yacctab.py in current dir), used by default.
 try:
