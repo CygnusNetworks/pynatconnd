@@ -3,7 +3,7 @@ Section: python
 Priority: optional
 Maintainer: Dr. Torge Szczepanek <debian@cygnusnetworks.de>
 Uploaders: Dr. Torge Szczepanek <debian@cygnusnetworks.de>
-Build-Depends: debhelper (>= 9), python-all, python3-all, python3-setuptools, python3-cffi, python3-cygnustoolkit, python3-dev, libnfnetlink-dev, libnetfilter-conntrack-dev, dh-python
+Build-Depends: debhelper (>= 9), python-all, python-setuptools, python-cffi, python-dev, python3-all, python3-setuptools, python3-cffi, python3-dev, libnfnetlink-dev, libnetfilter-conntrack-dev, dh-python
 Standards-Version: 3.9.6
 
 Package: python-pynatconnd
