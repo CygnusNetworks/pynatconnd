@@ -21,13 +21,13 @@ License:        proprietary
 Source0:        python-%{srcname}-%{version}.tar.gz
 
 BuildArch:      x86_64
-BuildRequires:  python2-devel, python-setuptools, python-cffi, libnfnetlink-devel, libnetfilter_conntrack-devel, python-cygnustoolkit
+BuildRequires:  python2-devel, python-setuptools, python-cffi, libnfnetlink-devel, libnetfilter_conntrack-devel
 %{?systemd_requires}
 BuildRequires: systemd
 %if 0%{?with_check}
 BuildRequires:  pytest
 %endif # with_check
-Requires:       python-setuptools, python-configobj, python-ipaddress, python-cffi, python-cygnustoolkit, python2-falcon, python2-future
+Requires:       python-setuptools, python-configobj, python-ipaddress, python-cffi, python2-falcon, python2-future
 
 %{?python_provide:%python_provide python-%{project}}
 
