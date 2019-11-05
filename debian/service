@@ -1,0 +1,13 @@
+[Unit]
+Description=pynatconnd Nat Connection Tracking Daemon
+
+[Service]
+Type=simple
+ExecStartPre=/bin/bash -c "/bin/echo 8388608 > /proc/sys/net/core/rmem_default"
+ExecStartPre=/bin/bash -c "/bin/echo 8388608 > /proc/sys/net/core/rmem_max"
+ExecStart=/usr/bin/pynatconnd
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
